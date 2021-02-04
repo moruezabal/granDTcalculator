@@ -33,17 +33,27 @@
                 }
             }
 
-            
+            $listScore = array_slice($player,4);
+    
             $stmt = $conn->prepare( "SELECT * FROM player WHERE player.name = ?");
             $stmt->execute([$player['name']]);
             $results = $stmt -> fetch(PDO::FETCH_OBJ);
-            var_dump($results->id_player);
+            $id = $results->id_player;
+            $nro_round = 1;
 
-
-            exit;
+            foreach ($listScore as $round => $score) {
+                $stmt = $conn->prepare("INSERT INTO player_round (fk_id_player, fk_id_round, score) VALUES (?, ?, ?)");
+                $insert = $stmt->execute([$id, $nro_round, $score]);
+                if($insert){
+                    $nro_round ++;
+                }
+                else{
+                    echo "Error al insertar";
+                }
+            }
+            echo("Jugador " . $id . " cargado");
         }
+        echo("Proceso finalizado");
         
-           
-       
     }
 ?>
