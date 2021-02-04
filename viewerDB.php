@@ -32,10 +32,14 @@
                     $player[$header] = null;
                 }
             }
-            $stmt = $conn->prepare( "SELECT player.id_player FROM player WHERE player.name = 'Ingolotti, Luis'");
-            $stmt->execute();
+
+            
+            $stmt = $conn->prepare( "SELECT * FROM player WHERE player.name = ?");
+            $stmt->execute([$player['name']]);
             $results = $stmt -> fetch(PDO::FETCH_OBJ);
-            var_dump($results);
+            var_dump($results->id_player);
+
+
             exit;
         }
         

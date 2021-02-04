@@ -26,8 +26,3 @@ foreach ($xlsx->rows() as $fields) {
     $value = $fields[3];
     $stmt->execute();
 }
-
-
-function getID ()
-
-?>
